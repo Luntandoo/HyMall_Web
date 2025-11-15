@@ -1,0 +1,288 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<style>
+    /* --- Strong reset to remove any unexpected top spacing from layout/title --- */
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    /* Common header/title selectors that may exist in your layout — reset them */
+    header, .site-header, .page-header, .page-title, .topbar, .layout-header {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+    }
+
+    /* reset generic headings that might add space */
+    h1, h2, h3 {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    /* Container / wrapper resets */
+    .container, .content, main, section {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    /* --- Dashboard hero styles (keeps hero visually centered but removes artificial whitespace) --- */
+    :root {
+        --bg1: #f8fbff;
+        --card-bg: #ffffff;
+        --accent1: #6e3bff;
+        --accent2: #3382ff;
+        --muted: #6f6f7a;
+        --radius: 16px;
+    }
+
+    .dashboard-hero {
+        /* ensure hero starts immediately after header */
+        margin: 0 auto !important;
+        padding: 28px 28px !important;
+        position: relative;
+        max-width: 1200px;
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,250,255,0.98));
+        box-shadow: 0 12px 40px rgba(14,20,40,0.06);
+        overflow: visible;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        /* don't force a big min-height that creates empty space */
+        min-height: auto !important;
+    }
+
+    /* If you want it to take the remaining viewport height (optional),
+           uncomment the next line and adjust the header offset as needed:
+           height: calc(100vh - 80px);  */
+
+    .hero-abstract {
+        position: absolute;
+        right: -90px;
+        top: -70px;
+        width: 360px;
+        height: 360px;
+        background: url('/images/feasture-abstract.png') no-repeat center center;
+        background-size: contain;
+        transform: rotate(-12deg);
+        opacity: 0.95;
+        pointer-events: none;
+        z-index: 0;
+        filter: saturate(1.05) brightness(1.02);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 860px;
+        padding: 6px 22px;
+    }
+
+    /* Integrated tagline (not a card) */
+    .hero-tagline {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #071024;
+        margin: 8px 0 16px;
+        letter-spacing: -0.2px;
+    }
+
+    .hero-subcopy {
+        font-size: 1.05rem;
+        color: var(--muted);
+        line-height: 1.6;
+        margin: 0 auto 20px;
+        max-width: 760px;
+    }
+
+    .hero-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        text-decoration: none;
+        box-shadow: 0 8px 20px rgba(15,30,80,0.06);
+    }
+
+    .btn-primary {
+        background: linear-gradient(90deg,var(--accent1),var(--accent2));
+        color: white;
+    }
+
+    .btn-soft {
+        background: linear-gradient(90deg,#fff,#f7fbff);
+        color: #111;
+        border: 1px solid #eef3ff;
+    }
+
+    /* Playful area below hero */
+    .play-area {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 20px;
+        margin: 28px auto;
+        max-width: 1100px;
+        position: relative;
+        z-index: 1;
+    }
+
+    @@media (max-width:980px) {
+        .play-area {
+            grid-template-columns: 1fr;
+            padding: 0 16px;
+        }
+
+        .hero-abstract {
+            display: none;
+        }
+
+        .dashboard-hero {
+            padding: 20px;
+        }
+    }
+
+    .card {
+        background: var(--card-bg);
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(18,24,48,0.04);
+    }
+
+    /* Sticky note */
+    .sticky {
+        background: linear-gradient(180deg,#fffdf4,#fff8e6);
+        border-radius: 10px;
+        padding: 12px;
+        min-height: 120px;
+        font-size: 0.95rem;
+        resize: vertical;
+        box-shadow: 0 10px 30px rgba(200,150,40,0.06);
+    }
+
+    .tiny {
+        font-size: .9rem;
+        color: var(--muted);
+    }
+
+    .float-shapes {
+        position: absolute;
+        left: 14px;
+        top: 20px;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .shape {
+        width: 14px;
+        height: 14px;
+        border-radius: 3px;
+        opacity: .95;
+        transform: rotate(12deg);
+        margin: 6px;
+        display: inline-block;
+    }
+</style>
+
+<div class="dashboard-hero" role="region" aria-label="Admin dashboard hero">
+    <div class="hero-abstract" aria-hidden="true"></div>
+
+    <div class="hero-content" role="article" aria-labelledby="dashboard-desc">
+        <!-- ONLY UPDATED: Tagline integrated naturally (not a card) -->
+        <div class="hero-tagline" aria-hidden="false">
+            Faster actions. Fewer interruptions. Happier tenants.
+        </div>
+
+        <!-- the single description (centered) -->
+        <p id="dashboard-desc" class="hero-subcopy">
+            This is your central hub for managing mall operations — review tenant profiles, approve events, respond to inquiries,
+            and coordinate announcements from here. Use the buttons below to quickly navigate to the tasks you want to take action on.
+        </p>
+
+        <div class="hero-actions" role="toolbar" aria-label="Primary actions">
+            <a href="/Admin/ViewTenants" class="btn btn-primary" title="View tenants">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 10.5L12 4l9 6.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /><path d="M5 21V11h14v10" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                View Tenants
+            </a>
+        </div>
+    </div>
+
+    <div class="float-shapes" aria-hidden="true">
+        <span class="shape" style="background:#ffd6e8;width:12px;height:12px;border-radius:4px;display:inline-block"></span>
+        <span class="shape" style="background:#c6e8ff;width:10px;height:10px;border-radius:2px;display:inline-block"></span>
+        <span class="shape" style="background:#e7d6ff;width:14px;height:8px;border-radius:3px;display:inline-block"></span>
+    </div>
+</div>
+
+<!-- Optional creative area below hero — keep or remove as you prefer -->
+<div class="play-area" role="main" aria-label="Admin tools">
+    <section>
+        <div class="card" aria-labelledby="sticky-title">
+            <h2 id="sticky-title" style="margin:0 0 6px;">Sticky Note</h2>
+            <div class="tiny">Save a quick reminder in this browser.</div>
+            <textarea id="sticky-note" class="sticky" placeholder="Write a short note..."></textarea>
+
+            <div style="display:flex; gap:8px; margin-top:10px; justify-content:flex-end;">
+                <button id="save-note" class="btn btn-primary" title="Save note">Save</button>
+                <button id="clear-note" class="btn btn-soft" title="Clear note">Clear</button>
+            </div>
+        </div>
+    </section>
+
+    <aside>
+        <div class="card" aria-labelledby="shortcuts-title">
+            <h3 id="shortcuts-title" style="margin:0 0 6px;">Quick Links</h3>
+            <div class="tiny">Navigate to key sections</div>
+            <div style="display:flex; gap:8px; margin-top:12px; justify-content:center; flex-wrap:wrap;">
+                <a href="/Admin/EventApprovals" class="btn btn-soft" style="padding:8px 12px;">Event Approvals</a>
+                <a href="/Admin/Announcements" class="btn btn-soft" style="padding:8px 12px;">Messages</a>
+                <a href="/Admin/Calendar" class="btn btn-soft" style="padding:8px 12px;">Calendar</a>
+                <a href="/Admin/Settings" class="btn btn-primary" style="padding:8px 12px;">Settings</a>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<script>
+    // Sticky note functionality (client-side only)
+    const NOTE_KEY = 'admin_sticky_note_v1';
+    const noteEl = document.getElementById('sticky-note');
+
+    function loadNote() {
+        const saved = localStorage.getItem(NOTE_KEY);
+        if (saved) {
+            noteEl.value = saved;
+        }
+    }
+
+    document.getElementById('save-note').addEventListener('click', () => {
+        localStorage.setItem(NOTE_KEY, noteEl.value || '');
+        alert('Note saved locally in this browser.');
+    });
+
+    document.getElementById('clear-note').addEventListener('click', () => {
+        if (confirm('Clear your sticky note?')) {
+            localStorage.removeItem(NOTE_KEY);
+            noteEl.value = '';
+        }
+    });
+
+    // initialize
+    loadNote();
+</script>

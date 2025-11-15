@@ -1,0 +1,14 @@
+﻿## Ignore Visual Studio and .NET build artifacts
+.vs/
+bin/
+obj/
+*.user
+*.db-shm
+*.db-wal
+
+# Explicitly ignore your SQLite files
+app_data.db
+app_data.db-shm
+app_data.db-wal
+
+# Optional: ignore user secrets or local configs (safe to keep appsettings.json)

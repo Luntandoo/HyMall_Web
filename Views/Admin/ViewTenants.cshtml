@@ -1,0 +1,89 @@
+﻿@model IEnumerable<HyMall_App.Models.ShopDetail>
+@{
+    ViewData["Title"] = "View Tenants";
+    Layout = "_AdminLayout";
+}
+
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <div>
+            <h2 style="margin: 0;">Tenant Store Management</h2>
+            <p style="margin: 8px 0 0 0; color: #666;">Manage all tenant shop profiles — edit, view, or delete records.</p>
+        </div>
+        <a asp-action="CreateTenant" class="btn btn-primary" style="
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #651FFF, #3382FF);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        ">➕ Add New Tenant</a>
+    </div>
+
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        @if (!Model.Any())
+        {
+            <div style="text-align: center; padding: 60px 20px; color: #6c757d;">
+                <p style="font-size: 1.1rem; margin-bottom: 10px;">No tenant shops found.</p>
+                <p style="color: #999;">Get started by adding your first tenant shop.</p>
+            </div>
+        }
+        else
+        {
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: linear-gradient(90deg, #651FFF, #3382FF);">
+                            <th style="padding: 16px; text-align: left; font-weight: 600; color: white; border-bottom: 2px solid #dee2e6;">Shop Name</th>
+                            <th style="padding: 16px; text-align: left; font-weight: 600; color: white; border-bottom: 2px solid #dee2e6;">Contact</th>
+                            <th style="padding: 16px; text-align: left; font-weight: 600; color: white; border-bottom: 2px solid #dee2e6;">Email</th>
+                            <th style="padding: 16px; text-align: left; font-weight: 600; color: white; border-bottom: 2px solid #dee2e6;">Days Open</th>
+                            <th style="padding: 16px; text-align: left; font-weight: 600; color: white; border-bottom: 2px solid #dee2e6;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var shop in Model)
+                        {
+                            <tr style="border-bottom: 1px solid #dee2e6;">
+                                <td style="padding: 16px; color: #333; font-weight: 500;">@shop.ShopName</td>
+                                <td style="padding: 16px; color: #333;">@shop.ContactNumber</td>
+                                <td style="padding: 16px; color: #333;">@shop.Email</td>
+                                <td style="padding: 16px; color: #333;">@shop.DaysOpen</td>
+                                <td style="padding: 16px;">
+                                    <div style="display: flex; gap: 8px;">
+                                        <a asp-action="EditTenant" asp-route-id="@shop.Id" style="
+                                                    padding: 6px 12px;
+                                                    background: #ffc107;
+                                                    color: #212529;
+                                                    border: none;
+                                                    border-radius: 6px;
+                                                    font-size: 0.875rem;
+                                                    font-weight: 500;
+                                                    text-decoration: none;
+                                                    cursor: pointer;
+                                                    transition: background 0.2s;
+                                                ">Edit</a>
+                                        <a asp-action="DeleteTenant" asp-route-id="@shop.Id" style="
+                                                    padding: 6px 12px;
+                                                    background: #dc3545;
+                                                    color: white;
+                                                    border: none;
+                                                    border-radius: 6px;
+                                                    font-size: 0.875rem;
+                                                    font-weight: 500;
+                                                    text-decoration: none;
+                                                    cursor: pointer;
+                                                    transition: background 0.2s;
+                                                " onclick="return confirm('Are you sure you want to delete this tenant?');">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

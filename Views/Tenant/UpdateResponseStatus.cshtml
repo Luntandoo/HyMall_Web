@@ -1,0 +1,36 @@
+﻿@*  *@
+@{
+    ViewData["Title"] = "Update Response Status";
+    Layout = "_TenantLayout";
+}
+
+<div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center;">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div style="background: #e6f7e6; color: #27ae60; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                ✅ @TempData["SuccessMessage"]
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div style="background: #ffe6e6; color: #d63031; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                ❌ @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <h3 style="margin-bottom: 20px;">Status Updated</h3>
+        <p style="margin-bottom: 25px; color: #666;">The response status has been updated successfully.</p>
+
+        <a href="/Tenant/CustomerFeedback" style="
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #651FFF, #3382FF);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+        ">Back to Feedback List</a>
+    </div>
+</div>

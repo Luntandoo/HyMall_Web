@@ -1,0 +1,45 @@
+﻿@model IEnumerable<HyMall_App.Models.InventoryCheck>
+
+@{
+    ViewData["Title"] = "Inventory Check Records";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Inventory Check Records</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Current Quantity</th>
+                    <th>Restocked Quantity</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var record in Model)
+                {
+                    <tr>
+                        <td>@record.ProductName</td>
+                        <td>@record.CurrentQuantity</td>
+                        <td>@record.RestockedQuantity</td>
+                        <td>@record.Notes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info text-center mt-4">
+            No inventory check records have been submitted yet.
+        </div>
+    }
+
+    <div class="text-center mt-4">
+        <a href="/Tenant/InventoryCheck" class="btn btn-primary">Submit New Inventory Check</a>
+        <a href="/Tenant/Dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>

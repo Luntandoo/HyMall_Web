@@ -1,0 +1,63 @@
+﻿@model HyMall_App.Models.Event
+@{
+    ViewData["Title"] = "Submit Event";
+    Layout = "_TenantLayout";
+}
+
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2>Submit Event</h2>
+
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <form asp-action="CreateEvent" method="post">
+            <!-- Title -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="Title" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Title</label>
+                <input asp-for="Title" class="form-control" placeholder="Enter event title" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                <span asp-validation-for="Title" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Description -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="Description" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Description</label>
+                <textarea asp-for="Description" class="form-control" placeholder="Enter event description" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem; min-height: 120px; resize: vertical;"></textarea>
+                <span asp-validation-for="Description" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Date + Location -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="Date" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Date & Time</label>
+                    <input asp-for="Date" type="datetime-local" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                    <span asp-validation-for="Date" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="Location" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Location</label>
+                    <input asp-for="Location" class="form-control" placeholder="Enter event location" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                    <span asp-validation-for="Location" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+            </div>
+
+            <!-- Submitted By -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="SubmittedBy" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Submitted By</label>
+                <input asp-for="SubmittedBy" class="form-control" readonly value="@User.Identity.Name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f0f0f0; font-size: 1rem; color: #666;" />
+            </div>
+
+            <!-- Submit Button -->
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="
+                    padding: 10px 20px;
+                    background: linear-gradient(90deg, #9C27B0, #E91E63);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                ">
+                    Submit Event
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

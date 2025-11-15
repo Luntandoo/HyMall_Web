@@ -1,0 +1,154 @@
+﻿@model HyMall_App.Models.ShopDetail
+@{
+    ViewData["Title"] = "Shop Detail";
+    Layout = "_TenantLayout";
+}
+
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2 style="text-align: center; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; gap: 10px;">🛒 Shop Details</h2>
+
+    <!-- Display Success or Error Messages -->
+    @if (TempData["Success"] != null)
+    {
+        <div style="
+                background: #e6f7e6;
+                color: #27ae60;
+                padding: 15px 20px;
+                border-radius: 8px;
+                border: 1px solid #b8e6b8;
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: between;
+                align-items: center;
+            ">
+            <span>✅ @TempData["Success"]</span>
+            <button type="button" onclick="this.parentElement.style.display='none'" style="
+                    background: none;
+                    border: none;
+                    color: #27ae60;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    margin-left: auto;
+                ">
+                ×
+            </button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div style="
+                background: #ffe6e6;
+                color: #d63031;
+                padding: 15px 20px;
+                border-radius: 8px;
+                border: 1px solid #ffb8b8;
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: between;
+                align-items: center;
+            ">
+            <span>❌ @TempData["Error"]</span>
+            <button type="button" onclick="this.parentElement.style.display='none'" style="
+                    background: none;
+                    border: none;
+                    color: #d63031;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    margin-left: auto;
+                ">
+                ×
+            </button>
+        </div>
+    }
+
+    <!-- Shop Detail Form -->
+    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <form asp-action="ShopDetail" method="post">
+            @Html.AntiForgeryToken()
+
+            <!-- Shop Name -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="ShopName" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Shop Name</label>
+                <input asp-for="ShopName" class="form-control" placeholder="Enter shop name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                <span asp-validation-for="ShopName" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Directions -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="Directions" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Directions</label>
+                <textarea asp-for="Directions" class="form-control" rows="3" placeholder="Enter directions to the shop" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem; resize: vertical;"></textarea>
+                <span asp-validation-for="Directions" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Opening Time + Closing Time -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="OpeningTime" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Opening Time</label>
+                    <input asp-for="OpeningTime" type="time" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                    <span asp-validation-for="OpeningTime" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="ClosingTime" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Closing Time</label>
+                    <input asp-for="ClosingTime" type="time" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                    <span asp-validation-for="ClosingTime" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+            </div>
+
+            <!-- Days Open -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="DaysOpen" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Days Open</label>
+                <input asp-for="DaysOpen" class="form-control" placeholder="e.g. Monday - Saturday" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                <span asp-validation-for="DaysOpen" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Contact Number + Email -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="ContactNumber" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Contact Number</label>
+                    <input asp-for="ContactNumber" class="form-control" placeholder="e.g. 0812345678" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                    <span asp-validation-for="ContactNumber" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="Email" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="e.g. shop@example.com" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                    <span asp-validation-for="Email" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div style="display: flex; justify-content: center; gap: 15px; margin-top: 30px;">
+                <button type="submit" style="
+                    padding: 12px 30px;
+                    background: linear-gradient(90deg, #28a745, #20c997);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                ">
+                    💾 Save Shop Details
+                </button>
+                <a asp-action="Dashboard" style="
+                    padding: 12px 30px;
+                    background: #fff;
+                    color: #333;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    text-decoration: none;
+                    transition: all 0.2s;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                ">
+                    ⬅️ Back to Dashboard
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

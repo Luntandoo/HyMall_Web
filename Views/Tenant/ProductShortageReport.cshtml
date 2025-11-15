@@ -1,0 +1,50 @@
+﻿@model HyMall_App.Models.ProductShortageReport
+@{
+    ViewData["Title"] = "Report Product Shortage";
+    Layout = "_TenantLayout";
+}
+
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2>Report Product Shortage</h2>
+
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <form asp-action="ProductShortageReport" method="post">
+            <!-- Product Name -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="ProductName" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Product Name</label>
+                <input asp-for="ProductName" class="form-control" placeholder="Enter product name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                <span asp-validation-for="ProductName" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Quantity Remaining -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="QuantityRemaining" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Quantity Remaining</label>
+                <input asp-for="QuantityRemaining" type="number" class="form-control" placeholder="Enter remaining quantity" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                <span asp-validation-for="QuantityRemaining" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Shortage Reason -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="ShortageReason" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Shortage Reason</label>
+                <textarea asp-for="ShortageReason" class="form-control" placeholder="Explain the reason for the shortage" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem; min-height: 120px; resize: vertical;"></textarea>
+                <span asp-validation-for="ShortageReason" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Report Button -->
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="
+                    padding: 10px 20px;
+                    background: linear-gradient(90deg, #FF6B6B, #FF8E53);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                ">
+                    Report Shortage
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

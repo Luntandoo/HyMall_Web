@@ -1,0 +1,257 @@
+﻿@{
+    ViewData["Title"] = "Tenant Dashboard";
+    Layout = "_TenantLayout";
+}
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    h1, h2, h3 {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .dashboard-hero {
+        margin: 0 auto !important;
+        padding: 28px 28px !important;
+        position: relative;
+        max-width: 1200px;
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,250,255,0.98));
+        box-shadow: 0 12px 40px rgba(14,20,40,0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero-abstract {
+        position: absolute;
+        right: -90px;
+        top: -70px;
+        width: 360px;
+        height: 360px;
+        background: url('/images/feasture-abstract.png') no-repeat center center;
+        background-size: contain;
+        transform: rotate(-12deg);
+        opacity: 0.95;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 860px;
+        padding: 6px 22px;
+    }
+
+    .hero-tagline {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #071024;
+        margin: 8px 0 16px;
+    }
+
+    .hero-subcopy {
+        font-size: 1.05rem;
+        color: #6f6f7a;
+        line-height: 1.6;
+        margin: 0 auto 20px;
+        max-width: 760px;
+    }
+
+    .hero-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        text-decoration: none;
+        box-shadow: 0 8px 20px rgba(15,30,80,0.06);
+    }
+
+    .btn-primary {
+        background: linear-gradient(90deg, #6e3bff, #3382ff);
+        color: white;
+    }
+
+    .btn-soft {
+        background: linear-gradient(90deg, #fff, #f7fbff);
+        color: #111;
+        border: 1px solid #eef3ff;
+    }
+
+    .float-shapes {
+        position: absolute;
+        left: 14px;
+        top: 20px;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .shape {
+        width: 14px;
+        height: 14px;
+        border-radius: 3px;
+        opacity: .95;
+        transform: rotate(12deg);
+        margin: 6px;
+        display: inline-block;
+    }
+
+    .play-area {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 20px;
+        margin: 28px auto;
+        max-width: 1100px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .card {
+        background: white;
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(18,24,48,0.04);
+    }
+
+    .sticky {
+        background: linear-gradient(180deg,#fffdf4,#fff8e6);
+        border-radius: 10px;
+        padding: 12px;
+        min-height: 120px;
+        font-size: 0.95rem;
+        resize: vertical;
+        box-shadow: 0 10px 30px rgba(200,150,40,0.06);
+    }
+
+    .tiny {
+        font-size: .9rem;
+        color: #6f6f7a;
+    }
+
+    {
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+    }
+
+    .hero-abstract {
+        display: none;
+    }
+
+    .dashboard-hero {
+        padding: 20px;
+    }
+
+    }
+</style>
+
+<div class="dashboard-hero" role="region" aria-label="Tenant dashboard hero">
+    <div class="hero-abstract" aria-hidden="true"></div>
+
+    <div class="hero-content" role="article" aria-labelledby="dashboard-desc">
+        <div class="hero-tagline">
+            Welcome back, @ViewBag.UserName 👋
+        </div>
+
+        <p id="dashboard-desc" class="hero-subcopy">
+            Manage your shop efficiently — update details, submit promotions, track shortages, and more.
+            Use the quick actions below to get started.
+        </p>
+
+        <div class="hero-actions" role="toolbar" aria-label="Tenant quick actions">
+            <a href="/Tenant/ShopDetail" class="btn btn-primary">Shop Details</a>
+            <a href="/Tenant/PromotionList" class="btn btn-primary">View Potential Promotions</a>
+            <a href="/Tenant/ProductShortageReport" class="btn btn-primary">Report Shortage</a>
+            <a href="/Tenant/CreateEvent" class="btn btn-primary">Submit Event</a>
+            <a href="/Tenant/MyEvents" class="btn btn-soft">My Events</a>
+        </div>
+    </div>
+
+    <div class="float-shapes" aria-hidden="true">
+        <span class="shape" style="background:#ffd6e8;"></span>
+        <span class="shape" style="background:#c6e8ff;"></span>
+        <span class="shape" style="background:#e7d6ff;"></span>
+    </div>
+</div>
+
+<!-- Optional section for notes and shortcuts -->
+<div class="play-area" role="main" aria-label="Tenant tools">
+    <section>
+        <div class="card" aria-labelledby="sticky-title">
+            <h2 id="sticky-title" style="margin:0 0 6px;">My Notes</h2>
+            <div class="tiny">Save quick reminders for your shop</div>
+            <textarea id="sticky-note" class="sticky" placeholder="Write a short note..."></textarea>
+
+            <div style="display:flex; gap:8px; margin-top:10px; justify-content:flex-end;">
+                <button id="save-note" class="btn btn-primary" title="Save note">Save</button>
+                <button id="clear-note" class="btn btn-soft" title="Clear note">Clear</button>
+            </div>
+        </div>
+    </section>
+
+    <aside>
+        <div class="card" aria-labelledby="shortcuts-title">
+            <h3 id="shortcuts-title" style="margin:0 0 6px;">Quick Links</h3>
+            <div class="tiny">Navigate to key shop tools</div>
+
+            <div style="display:flex; gap:8px; margin-top:12px; justify-content:center; flex-wrap:wrap;">
+
+                <!-- Existing links -->
+                <a href="/Tenant/PromotionList" class="btn btn-soft">View Promotions</a>
+
+                <!-- New pages added -->
+                <a href="/Tenant/MyEvents" class="btn btn-soft">My Events</a>
+                <a href="/Tenant/ViewAnnouncements" class="btn btn-soft">View Announcements</a>
+                <a href="/Tenant/ViewShortages" class="btn btn-soft">View Shortages</a>
+
+
+                <!-- Existing tools -->
+                <a href="/Tenant/CustomerFeedback" class="btn btn-soft">Customer Feedback</a>
+                <a href="/Contact" class="btn btn-primary">Contact Support</a>
+
+            </div>
+        </div>
+    </aside>
+
+</div>
+
+<script>
+    const NOTE_KEY = 'tenant_sticky_note_v1';
+    const noteEl = document.getElementById('sticky-note');
+
+    function loadNote() {
+        const saved = localStorage.getItem(NOTE_KEY);
+        if (saved) noteEl.value = saved;
+    }
+
+    document.getElementById('save-note').addEventListener('click', () => {
+        localStorage.setItem(NOTE_KEY, noteEl.value || '');
+        alert('Note saved locally in this browser.');
+    });
+
+    document.getElementById('clear-note').addEventListener('click', () => {
+        if (confirm('Clear your note?')) {
+            localStorage.removeItem(NOTE_KEY);
+            noteEl.value = '';
+        }
+    });
+
+    loadNote();
+</script>

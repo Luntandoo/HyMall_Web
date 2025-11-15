@@ -1,0 +1,87 @@
+﻿@model HyMall_App.Models.Promotion
+@{
+    ViewData["Title"] = "Create Promotion";
+    Layout = "_TenantLayout";
+}
+
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2>Create Promotion</h2>
+
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <form asp-action="Promotion" method="post">
+            <!-- Title -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="Title" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Title</label>
+                <input asp-for="Title" class="form-control" placeholder="Enter promotion title" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                <span asp-validation-for="Title" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Products Involved + Discount Type -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="ProductsInvolved" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Products Involved</label>
+                    <input asp-for="ProductsInvolved" class="form-control" placeholder="Enter products involved" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                    <span asp-validation-for="ProductsInvolved" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="DiscountType" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Discount Type</label>
+                    <select asp-for="DiscountType" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;">
+                        <option value="">Select Type</option>
+                        <option>Percentage</option>
+                        <option>Flat</option>
+                    </select>
+                    <span asp-validation-for="DiscountType" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+            </div>
+
+            <!-- Occasion + Start Date -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="Occasion" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Occasion</label>
+                    <select asp-for="Occasion" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;">
+                        <option value="">Select Occasion</option>
+                        <option>Holiday</option>
+                        <option>Birthday</option>
+                        <option>Black Friday</option>
+                    </select>
+                    <span asp-validation-for="Occasion" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="StartDate" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Start Date</label>
+                    <input asp-for="StartDate" type="date" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                    <span asp-validation-for="StartDate" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+            </div>
+
+            <!-- End Date -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="EndDate" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">End Date</label>
+                <input asp-for="EndDate" type="date" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                <span asp-validation-for="EndDate" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Description -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="Description" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Description</label>
+                <textarea asp-for="Description" class="form-control" placeholder="Enter promotion description" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem; min-height: 100px; resize: vertical;"></textarea>
+                <span asp-validation-for="Description" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Submit Button -->
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="
+                    padding: 10px 20px;
+                    background: linear-gradient(90deg, #651FFF, #3382FF);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                ">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

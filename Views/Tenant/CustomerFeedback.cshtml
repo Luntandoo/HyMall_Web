@@ -1,0 +1,87 @@
+﻿@model HyMall_App.Models.CustomerFeedback
+@{
+    ViewData["Title"] = "Customer Feedback";
+    Layout = "_TenantLayout";
+}
+
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2>Customer Feedback</h2>
+
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <form asp-action="CustomerFeedback" method="post">
+            <!-- Customer Name -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="CustomerName" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Customer Name</label>
+                <input asp-for="CustomerName" class="form-control" placeholder="Enter customer name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                <span asp-validation-for="CustomerName" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                <div style="font-size: 0.875rem; color: #6c757d; margin-top: 4px;">Label as John/Jane Doe if anonymous</div>
+            </div>
+
+            <!-- Product + Feedback Type -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="ProductOrCategory" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Product</label>
+                    <input asp-for="ProductOrCategory" class="form-control" placeholder="Enter product or category" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                    <span asp-validation-for="ProductOrCategory" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="FeedbackType" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Please select the type of feedback</label>
+                    <select asp-for="FeedbackType" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;">
+                        <option value="">Select Type</option>
+                        <option>Complaint</option>
+                        <option>Suggestion</option>
+                        <option>Compliment</option>
+                    </select>
+                    <span asp-validation-for="FeedbackType" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+            </div>
+
+            <!-- Message -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="Message" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Message</label>
+                <textarea asp-for="Message" class="form-control" placeholder="Enter feedback message" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem; min-height: 120px; resize: vertical;"></textarea>
+                <span asp-validation-for="Message" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Severity + Response Status -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="Severity" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Severity</label>
+                    <select asp-for="Severity" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;">
+                        <option value="">Select Severity</option>
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                    </select>
+                    <span asp-validation-for="Severity" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="ResponseStatus" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Response Status</label>
+                    <select asp-for="ResponseStatus" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;">
+                        <option value="">Select Response Status</option>
+                        <option>Pending</option>
+                        <option>In Progress</option>
+                        <option>Resolved</option>
+                    </select>
+                    <span asp-validation-for="ResponseStatus" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="
+                    padding: 10px 20px;
+                    background: linear-gradient(90deg, #4CAF50, #45a049);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                ">
+                    Submit Feedback
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+﻿@model HyMall_App.Models.ShopDetail
+@{
+    ViewData["Title"] = "Edit Tenant";
+    Layout = "_AdminLayout";
+}
+
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2>@(Model.Id == 0 ? "Add New Tenant" : "Edit Tenant")</h2>
+
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <form asp-action="@(Model.Id == 0 ? "CreateTenant" : "EditTenant")" method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <!-- Shop Name -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="ShopName" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Shop Name</label>
+                <input asp-for="ShopName" class="form-control" placeholder="Enter shop name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                <span asp-validation-for="ShopName" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Directions -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="Directions" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Directions</label>
+                <input asp-for="Directions" class="form-control" placeholder="Enter directions or Google Maps link" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+            </div>
+
+            <!-- Opening Time + Closing Time -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="OpeningTime" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Opening Time</label>
+                    <input asp-for="OpeningTime" type="time" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="ClosingTime" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Closing Time</label>
+                    <input asp-for="ClosingTime" type="time" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                </div>
+            </div>
+
+            <!-- Days Open (Multiple Select) -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="DaysOpen" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Days Open</label>
+                <select id="DaysOpenSelect" name="DaysOpen" multiple class="form-control"
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;
+                               background: #f9f9f9; font-size: 1rem; min-height: 140px;">
+                    @{
+                        var selectedDays = (Model?.DaysOpen ?? "").Split(',').Select(d => d.Trim()).ToList();
+                    }
+                    <option value="Mon" selected="@selectedDays.Contains("Mon")">Monday</option>
+                    <option value="Tue" selected="@selectedDays.Contains("Tue")">Tuesday</option>
+                    <option value="Wed" selected="@selectedDays.Contains("Wed")">Wednesday</option>
+                    <option value="Thu" selected="@selectedDays.Contains("Thu")">Thursday</option>
+                    <option value="Fri" selected="@selectedDays.Contains("Fri")">Friday</option>
+                    <option value="Sat" selected="@selectedDays.Contains("Sat")">Saturday</option>
+                    <option value="Sun" selected="@selectedDays.Contains("Sun")">Sunday</option>
+                </select>
+                <span asp-validation-for="DaysOpen" class="text-danger"
+                      style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Contact Number + Email -->
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="ContactNumber" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Contact Number</label>
+                    <input asp-for="ContactNumber" class="form-control" placeholder="Enter contact number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <label asp-for="Email" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Email</label>
+                    <input asp-for="Email" class="form-control" placeholder="Enter email address" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div style="display: flex; justify-content: flex-start; gap: 10px; margin-top: 30px;">
+                <button type="submit" class="btn btn-success" style="
+                    padding: 10px 20px;
+                    background: linear-gradient(90deg, #28a745, #20c997);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                ">
+                    Save
+                </button>
+                <a asp-action="ViewTenants" class="btn btn-secondary" style="
+                    padding: 10px 20px;
+                    background: #fff;
+                    color: #333;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    text-decoration: none;
+                    transition: all 0.2s;
+                ">
+                    Back
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

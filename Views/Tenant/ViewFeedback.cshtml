@@ -1,0 +1,193 @@
+﻿@model IEnumerable<HyMall_App.Models.CustomerFeedback>
+@{
+    ViewData["Title"] = "Customer Feedback";
+    Layout = "_TenantLayout";
+}
+
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+    <h2 style="margin-bottom: 30px;">Customer Feedback</h2>
+
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #f8f9fa;">
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #dee2e6;">Customer Name</th>
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #dee2e6;">Product or Category</th>
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #dee2e6;">Feedback Type</th>
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #dee2e6;">Severity</th>
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #dee2e6;">Response Status</th>
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #dee2e6;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var f in Model)
+                        {
+                            <tr style="border-bottom: 1px solid #dee2e6;">
+                                <td style="padding: 12px 16px; color: #333;">@f.CustomerName</td>
+                                <td style="padding: 12px 16px; color: #333;">@f.ProductOrCategory</td>
+                                <td style="padding: 12px 16px; color: #333;">
+                                    <span style="
+                                                padding: 4px 8px;
+                                                border-radius: 12px;
+                                                font-size: 0.875rem;
+                                                font-weight: 500;
+                                                @(f.FeedbackType == "Complaint" ? "background: #ffe6e6; color: #d63031;" :
+                                                                                    f.FeedbackType == "Compliment" ? "background: #e6f7e6; color: #27ae60;" :
+                                                                                    "background: #e6f3ff; color: #2980b9;")
+                                                                                                                             ">@f.FeedbackType</span>
+                                                                                                                 </td>
+                                                                                                                 <td style="padding: 12px 16px; color: #333;">
+                                                                                                                     <span style="
+                                                                                                                                 padding: 4px 8px;
+                                                                                                                                 border-radius: 12px;
+                                                                                                                                 font-size: 0.875rem;
+                                                                                                                                 font-weight: 500;
+                                                @(f.Severity == "High" ? "background: #ffe6e6; color: #d63031;" :
+                                                                                    f.Severity == "Medium" ? "background: #fff3cd; color: #856404;" :
+                                                                                    "background: #e6f7e6; color: #27ae60;")
+                                    ">@f.Severity</span>
+                        </td>
+                        <td style="padding: 12px 16px; color: #333;">
+                            <form asp-action="UpdateResponseStatus" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="@f.Id" />
+                                <select name="responseStatus" onchange="this.form.submit()" style="
+                                            padding: 4px 8px;
+                                            border-radius: 12px;
+                                            font-size: 0.875rem;
+                                            font-weight: 500;
+                                            border: 1px solid #ddd;
+                                            background: @(f.ResponseStatus == "Resolved" ? "#e6f7e6" :
+                                                                                                                                                             f.ResponseStatus == "In Progress" ? "#e6f3ff" :
+                                                                                                                                                             "#fff3cd");
+                                            color: @(f.ResponseStatus == "Resolved" ? "#27ae60" :
+                                                                                                                                                        f.ResponseStatus == "In Progress" ? "#2980b9" :
+                                                                                                                                                        "#856404");
+                                            cursor: pointer;
+                                        ">
+                                    <option value="Pending" selected="@(f.ResponseStatus == "Pending")" style="background: #fff3cd; color: #856404;">Pending</option>
+                                    <option value="In Progress" selected="@(f.ResponseStatus == "In Progress")" style="background: #e6f3ff; color: #2980b9;">In Progress</option>
+                                    <option value="Resolved" selected="@(f.ResponseStatus == "Resolved")" style="background: #e6f7e6; color: #27ae60;">Resolved</option>
+                                </select>
+                            </form>
+                        </td>
+                        <td style="padding: 12px 16px; color: #333;">
+                            <button type="button" onclick="showFeedbackDetails('@f.CustomerName', '@f.ProductOrCategory', '@f.FeedbackType', '@f.Severity', '@f.ResponseStatus', '@f.Message')" style="
+                                        padding: 6px 12px;
+                                        background: #6c757d;
+                                        color: white;
+                                        border: none;
+                                        border-radius: 6px;
+                                        font-size: 0.875rem;
+                                        font-weight: 500;
+                                        cursor: pointer;
+                                        transition: background 0.2s;
+                                    ">
+                                View Details
+                            </button>
+                        </td>
+                    </tr>
+                                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" style="padding: 40px 16px; text-align: center; color: #6c757d; font-style: italic;">
+                                No feedback records found.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for feedback details -->
+<div id="feedbackModal" style="
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+">
+    <div style="
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+    ">
+        <h3 style="margin-bottom: 20px; color: #333;">Feedback Details</h3>
+        <div style="margin-bottom: 15px;">
+            <strong>Customer Name:</strong> <span id="modalCustomerName"></span>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <strong>Product/Category:</strong> <span id="modalProduct"></span>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <strong>Feedback Type:</strong> <span id="modalType"></span>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <strong>Severity:</strong> <span id="modalSeverity"></span>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <strong>Response Status:</strong> <span id="modalStatus"></span>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <strong>Message:</strong>
+            <div id="modalMessage" style="
+                margin-top: 8px;
+                padding: 12px;
+                background: #f8f9fa;
+                border-radius: 6px;
+                border-left: 4px solid #007bff;
+            "></div>
+        </div>
+        <button onclick="closeModal()" style="
+            padding: 10px 20px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            float: right;
+        ">
+            Close
+        </button>
+    </div>
+</div>
+
+<script>
+    function showFeedbackDetails(customerName, product, type, severity, status, message) {
+        document.getElementById('modalCustomerName').textContent = customerName;
+        document.getElementById('modalProduct').textContent = product;
+        document.getElementById('modalType').textContent = type;
+        document.getElementById('modalSeverity').textContent = severity;
+        document.getElementById('modalStatus').textContent = status;
+        document.getElementById('modalMessage').textContent = message;
+        document.getElementById('feedbackModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('feedbackModal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('feedbackModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+</script>

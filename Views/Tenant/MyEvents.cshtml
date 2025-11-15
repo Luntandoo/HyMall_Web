@@ -1,0 +1,71 @@
+﻿@model IEnumerable<HyMall_App.Models.Event>
+@{
+    ViewData["Title"] = "My Events";
+    Layout = "_TenantLayout";
+}
+
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h2 style="display: flex; align-items: center; gap: 10px; margin: 0;">🎉 My Submitted Events</h2>
+        <a href="/Tenant/CreateEvent" class="btn btn-primary" style="
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #9C27B0, #E91E63);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        ">➕ Submit New Event</a>
+    </div>
+
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; min-width: 800px;">
+                <thead>
+                    <tr style="background: #f8f9fa;">
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #dee2e6;">Title</th>
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #dee2e6;">Date</th>
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #dee2e6;">Location</th>
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #dee2e6;">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var e in Model)
+                        {
+                            <tr style="border-bottom: 1px solid #dee2e6;">
+                                <td style="padding: 12px 16px; color: #333; font-weight: 500;">@e.Title</td>
+                                <td style="padding: 12px 16px; color: #333;">@e.Date.ToShortDateString()</td>
+                                <td style="padding: 12px 16px; color: #333;">@e.Location</td>
+                                <td style="padding: 12px 16px; color: #333;">@e.Description</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" style="padding: 40px 16px; text-align: center; color: #6c757d; font-style: italic;">
+                                No events submitted yet.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div style="display: flex; justify-content: flex-start; gap: 10px; margin-top: 30px;">
+            <a href="/Tenant/Dashboard" class="btn btn-secondary" style="
+                padding: 10px 20px;
+                background: #fff;
+                color: #333;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.2s;
+            ">⬅ Back to Dashboard</a>
+        </div>
+    </div>
+</div>

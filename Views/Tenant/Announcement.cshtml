@@ -1,0 +1,51 @@
+﻿@model HyMall_App.Models.Announcement
+@{
+    ViewData["Title"] = "Create Announcement";
+    Layout = "_TenantLayout";
+}
+
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h2>Create Announcement</h2>
+
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <form asp-action="Announcement" method="post">
+            <!-- Announcement Title -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="Title" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Announcement Title</label>
+                <input asp-for="Title" class="form-control" placeholder="Enter announcement title" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                <span asp-validation-for="Title" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Message -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="Message" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Message</label>
+                <textarea asp-for="Message" class="form-control" placeholder="Enter your message" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem; min-height: 120px; resize: vertical;"></textarea>
+                <span asp-validation-for="Message" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+                <div style="font-size: 0.875rem; color: #6c757d; margin-top: 4px;">This message will be sent to the HyMall admin.</div>
+            </div>
+
+            <!-- Expiry Date -->
+            <div style="margin-bottom: 20px;">
+                <label asp-for="ExpiryDate" style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Announcement Expiry Date</label>
+                <input asp-for="ExpiryDate" type="date" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; font-size: 1rem;" />
+                <span asp-validation-for="ExpiryDate" class="text-danger" style="font-size: 0.875rem; display: block; margin-top: 4px;"></span>
+            </div>
+
+            <!-- Submit Button -->
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="
+                    padding: 10px 20px;
+                    background: linear-gradient(90deg, #651FFF, #3382FF);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                ">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

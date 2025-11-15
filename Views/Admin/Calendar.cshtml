@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Event Calendar";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">📅 Approved Events Calendar</h3>
+        </div>
+
+        <div class="card-body">
+            <p class="text-muted mb-4">
+                Below is a visual calendar of all <strong>approved events</strong>. Click on an event to see more details.
+            </p>
+
+            <div id="calendar"></div>
+        </div>
+    </div>
+</div>
+
+<!-- FullCalendar & Dependencies -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                themeSystem: 'bootstrap5',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,listWeek'
+                },
+                height: 'auto',
+                selectable: false,
+                events: '/Admin/GetApprovedEvents', // ✅ Controller endpoint returning JSON
+                eventDisplay: 'block',
+                eventColor: '#198754',
+                eventTextColor: '#fff',
+                eventClick: function (info) {
+                    // Show event details in a modal
+                    alert('📌 ' + info.event.title + '\n\n🕒 ' + info.event.start.toLocaleString());
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+}
